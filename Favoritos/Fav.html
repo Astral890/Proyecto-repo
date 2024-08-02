@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="Diseño.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <video id="myVideo" autoplay muted loop>
+            <source src="/Proyecto-repo/Layout/Photos-layout/Y2meta.app-Flame Spitting Aventador S in [4K]-(1080p).mp4" type="video/mp4">
+        </video>
+        
+        <div class="header-content">
+            <div class="header-logo">
+                <a href="/Homepage/Inicio.html" class="Logo-button">
+                    <img src="/Proyecto-repo/Layout/Photos-layout/file (4).png" alt="Logo" class="Logo">
+                </a>
+            </div>
+
+            <div class="header-explore">
+                <a href="/Favoritos/Favoritosp.html" class="Login-button">
+                    <span>Explorar</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
+                    </svg>
+                </a>
+
+                <a href="/New-tshsirts/Fav.html" class="new-button">
+                    <span>Iniciar sesión</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="Teniscontenedor">
+        <h1>Favoritos</h1>
+        <p>Aquí están tus imágenes favoritas.</p>
+    </div>
+
+    <div class="gallery" id="favorites-gallery">
+        <!-- Las imágenes favoritas se cargarán aquí -->
+    </div>
+
+    <script>
+        // Cargar las imágenes favoritas desde el almacenamiento local
+        window.onload = function() {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            let gallery = document.getElementById('favorites-gallery');
+
+            if (favorites.length === 0) {
+                gallery.innerHTML = '<p>No tienes imágenes favoritas.</p>';
+            } else {
+                favorites.forEach(src => {
+                    let div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    let img = document.createElement('img');
+                    img.src = src;
+                    let button = document.createElement('button');
+                    button.className = 'remove-button';
+                    button.innerText = 'Quitar de Favoritos';
+                    button.onclick = function() { removeFromFavorites(src); };
+                    div.appendChild(img);
+                    div.appendChild(button);
+                    gallery.appendChild(div);
+                });
+
+                // Iniciar Masonry después de cargar las imágenes
+                var msnry = new Masonry(gallery, {
+                    itemSelector: '.gallery-item',
+                    columnWidth: '.gallery-item',
+                    percentPosition: true
+                });
+            }
+        };
+
+        // Función para eliminar una imagen de los favoritos
+        function removeFromFavorites(imageSrc) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(src => src !== imageSrc);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            alert('Imagen eliminada de favoritos');
+            location.reload(); // Recargar la página para actualizar la lista de favoritos
+        }
+    </script>
+</body>
+</html>

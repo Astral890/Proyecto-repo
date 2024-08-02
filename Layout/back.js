@@ -7,3 +7,14 @@ window.onload = function() {
         percentPosition: true
     });
 };
+
+function addToFavorites(imageSrc) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    if (!favorites.includes(imageSrc)) {
+        favorites.push(imageSrc);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert('Imagen agregada a favoritos');
+    } else {
+        alert('Esta imagen ya está en tus favoritos');
+    }
+}
