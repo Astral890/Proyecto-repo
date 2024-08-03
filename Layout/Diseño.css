@@ -112,7 +112,7 @@ video#myVideo {
     justify-content: center;
     margin: 20px auto;
     gap: 10px;
-    max-width: 90%; /* Ajusta según tus necesidades */
+    max-width: 60%; /* Ajusta según tus necesidades */
 }
 
 .gallery-item {
